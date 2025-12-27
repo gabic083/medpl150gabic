@@ -1,169 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Story</title>
-    <style>
-        body { 
-            font-family: 'Courier New', Courier, monospace; 
-            background-color: #f0f2f5; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
-            margin: 0; 
-            transition: background 1s ease; 
-        }
-        #game-box { 
-            background: #fff; 
-            padding: 40px; 
-            border-radius: 12px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
-            max-width: 600px; 
-            width: 90%; 
-            min-height: 300px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        #text { 
-            font-size: 1.4rem; 
-            line-height: 1.6; 
-            color: #333;
-            margin-bottom: 20px;
-        }
-        .options { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 12px; 
-        }
-        button { 
-            padding: 15px; 
-            cursor: pointer; 
-            border: 2px solid #333; 
-            border-radius: 8px; 
-            background: transparent; 
-            font-family: inherit;
-            font-weight: bold;
-            transition: 0.3s;
-            opacity: 0; /* Hidden until text finishes typing */
-            animation: fadeIn 0.5s forwards;
-        }
-        button:hover { background: #333; color: #fff; }
-        
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-
-        .home-btn { margin-top: 20px; text-align: center; color: #999; text-decoration: none; font-size: 0.8rem; }
-    </style>
-</head>
-<body>
-
-<div id="game-box">
-    <div id="text"></div>
-    <div id="options" class="options"></div>
-    <a href="index.html" class="home-btn">← Back to Homework</a>
-</div>
-
 <script>
     const story = {
         start: {
-            text: "You wake up. It's a new day. You Start Here.",
+            text: "You're lying in bed when your phone buzzes. It's a text from your friend: 'Kris is having a party at 155 S 2nd. You should comee, Adrian will be there ;)'",
             color: "#f0f2f5",
             options: [
                 { text: "Get up, find outfit", next: "outfit" },
-                { text: "Stay in, Order Food", next: "stay_in" }
+                { text: "Stay in bed, order Uber Eats", next: "stay_in" }
             ]
         },
         outfit: {
-            text: "You've got your outfit on. How are you traveling?",
+            text: "You've got your outfit on and you're feeling yourself. How are you getting to 155 S 2nd?",
             color: "#ffb3ba",
-            options: [{ text: "Take an Uber", next: "uber" }, { text: "Take the train", next: "train" }]
+            options: [
+                { text: "Take an Uber", next: "uber" }, 
+                { text: "Take the train", next: "train" }
+            ]
         },
         uber: {
-            text: "The Uber drops you off. You feel fancy.",
+            text: "The Uber drops you off. You can hear the music from the street.",
             color: "#ffb3ba",
-            options: [{ text: "Wait outside for her", next: "wait" }, { text: "Go inside, she'll meet u later", next: "inside" }]
+            options: [
+                { text: "Wait outside for your friend", next: "wait" }, 
+                { text: "Go inside, she'll meet u later", next: "inside" }
+            ]
         },
         wait: {
-            text: "You wait outside. Someone comes up besides u and lights a cigarette. (L1 Loop)",
+            text: "You wait outside. Someone comes up besides u and lights a cigarette. You realize this vibe isn't for you tonight.",
             color: "#ffb3ba",
             options: [{ text: "Start over...", next: "start" }]
         },
         inside: {
-            text: "You walk in and your heart stops. You see Adrian with someone else. You are upset.",
+            text: "You walk in and your heart drops. You see Adrian with another girl. You are upset and need to get out of there.",
             color: "#ffb3ba",
-            options: [{ text: "Go home, order food, open tinder (L2 Loop)", next: "stay_in" }]
+            options: [
+                { text: "Go home and order Uber Eats", next: "stay_in" },
+                { text: "Go outside for a smoke", next: "stranger_meet" }
+            ]
         },
-        train: {
-            text: "You find a seat on the train. It's quiet.",
-            color: "#bae1ff",
-            options: [{ text: "Look out the window", next: "window" }, { text: "Go on your phone, open tinder", next: "tinder_train" }]
-        },
-        window: {
-            text: "Someone catches your eye... what do you do?",
-            color: "#ffffba",
-            options: [{ text: "Say hi (Miss your stop!)", next: "start" }, { text: "Smile and walk away", next: "start" }]
-        },
-        tinder_train: {
-            text: "You start swiping. The signal is weak but the matches are strong.",
-            color: "#bae1ff",
-            options: [{ text: "Talk to someone new", next: "missed_stop" }, { text: "Respond to person you like", next: "cafe_choice" }]
-        },
-        missed_stop: {
-            text: "Ending E5: You were so busy swiping you missed your stop. You're stuck on the train forever!",
-            color: "#bae1ff",
-            options: [{ text: "Restart", next: "start" }]
-        },
-        stay_in: {
-            text: "Comfort first. You order food and open Tinder.",
-            color: "#baffc9",
-            options: [{ text: "Respond to match ('heyy')", next: "bed_ending" }, { text: "Talk to the match you like", next: "cafe_choice" }]
-        },
-        bed_ending: {
-            text: "Ending E4: The conversation is a snooze fest. You're stuck in bed perpetually.",
-            color: "#baffc9",
-            options: [{ text: "Try again", next: "start" }]
-        },
-        cafe_choice: {
-            text: "You've got a date! Where are we going?",
-            color: "#bae1ff",
-            options: [{ text: "Go to the party together", next: "love_plot" }, { text: "Go to a cafe nearby", next: "love_plot" }]
-        },
-        love_plot: {
-            text: "You fall in love. A year passes. He's offered the biggest space mission in history. What do you do?",
+        stranger_meet: {
+            text: "You step outside to clear your head. A stranger approaches you for a light. You feel an instant, magnetic allure. You end up talking for 4 hours, connecting deeper than you ever have with anyone.",
             color: "#e0bbff",
-            options: [{ text: "Ending E2: Love from Earth", next: "start" }, { text: "Ending E3: Go with him!", next: "start" }]
-        }
+            options: [{ text: "One year later...", next: "space_choice" }]
+        },
+        space_choice: {
+            text: "A year has passed, and your bond is unbreakable. But now, he has been offered the biggest space mission in history. What do you do?",
+            color: "#e0bbff",
+            options: [
+                { text: "Love him from Earth", next: "ENDING_EARTH" },
+                { text: "Go to the stars with him", next: "ENDING_SPACE" }
+            ]
+        },
+        // ... (Keep your existing 'train' and 'stay_in' logic here)
     };
 
     let i = 0;
-    let speed = 40; // Adjust typing speed here (lower is faster)
-
-    function typeWriter(text, callback) {
-        if (i < text.length) {
-            document.getElementById("text").innerHTML += text.charAt(i);
-            i++;
-            setTimeout(() => typeWriter(text, callback), speed);
-        } else {
-            callback(); // Show buttons after typing is done
-        }
-    }
+    let speed = 40; 
 
     function loadScene(id) {
+        // Check if the choice is a special redirect to a new page
+        if (id === "ENDING_EARTH") {
+            window.location.href = "ending-earth.html";
+            return;
+        }
+        if (id === "ENDING_SPACE") {
+            window.location.href = "ending-space.html";
+            return;
+        }
+
         const scene = story[id];
         const textContainer = document.getElementById('text');
         const optionsDiv = document.getElementById('options');
         
-        // Reset for new scene
         i = 0;
         textContainer.innerHTML = '';
         optionsDiv.innerHTML = '';
         document.body.style.backgroundColor = scene.color;
 
-        // Start typing
         typeWriter(scene.text, () => {
             scene.options.forEach(o => {
                 const btn = document.createElement('button');
@@ -174,8 +86,15 @@
         });
     }
 
-    // Start Game
+    function typeWriter(text, callback) {
+        if (i < text.length) {
+            document.getElementById("text").innerHTML += text.charAt(i);
+            i++;
+            setTimeout(() => typeWriter(text, callback), speed);
+        } else {
+            callback(); 
+        }
+    }
+
     loadScene('start');
 </script>
-</body>
-</html>
