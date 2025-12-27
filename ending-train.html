@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ending: The Eternal Train</title>
+    <style>
+        body { 
+            background-color: #121212; /* Slightly darker for a bare feel */
+            color: #d1d1d1; /* Muted white for a minimalist look */
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        #art-container {
+            width: 85%;
+            max-width: 550px;
+            margin-bottom: 30px;
+        }
+        img { 
+            width: 100%; 
+            /* Minimalist: No border, no glow */
+            opacity: 0;
+            animation: fadeInArt 3s forwards; 
+        }
+        #typewriter-text { 
+            font-size: 1.2rem;
+            max-width: 500px; 
+            line-height: 1.6; 
+            padding: 0 20px;
+            letter-spacing: 1px;
+        }
+        .back-link { 
+            margin-top: 40px; 
+            color: #555; /* Very subtle link */
+            text-decoration: none; 
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        .back-link:hover {
+            color: #888;
+        }
+        
+        @keyframes fadeInArt { to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div id="art-container">
+        <img src="images/train.jpg" alt="Eternal Train Artwork">
+    </div>
+
+    <div id="typewriter-text"></div>
+
+    <a href="story.html" id="restart-btn" class="back-link">try again</a>
+
+    <script>
+        const text = "The doors never open. You are part of the commute now. You are stuck on an eternally moving train...";
+        let i = 0;
+        const speed = 60; // Slightly slower for a more somber feel
+
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typewriter-text").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            } else {
+                document.getElementById("restart-btn").style.opacity = "1";
+            }
+        }
+
+        // Start typing after the image begins to fade in
+        setTimeout(typeWriter, 1200);
+    </script>
+
+</body>
+</html>
