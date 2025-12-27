@@ -17,7 +17,7 @@
             ]
         },
         uber: {
-            text: "The Uber drops you off. You can hear the music from the street. Now you're even earlier than your friend",
+            text: "The Uber drops you off. You can hear the music from the street. Now you're even earlier than your friend.",
             color: "#ffb3ba",
             options: [
                 { text: "Wait outside for your friend", next: "wait" }, 
@@ -25,47 +25,65 @@
             ]
         },
         wait: {
-            text: "You wait outside, feeling a little awkward. Someone comes up besides u and lights a cigarette.",
-            color: "#ffb3ba",
-            options: [{ text: "Start over...", next: "start" }]
+            text: "You wait outside, feeling a little awkward. Someone comes up besides u and lights a cigarette. You feel an instant, magnetic allure.",
+            color: "#e0bbff",
+            options: [{ text: "Talk to them", next: "romance_arc" }]
         },
         inside: {
             text: "You walk in and your heart drops. You see Adrian with another girl. You are upset and need to get out of there.",
             color: "#ffb3ba",
             options: [
                 { text: "Go home and order Uber Eats", next: "stay_in" },
-                { text: "Go outside for a smoke", next: "stranger_meet" }
+                { text: "Go outside for a smoke", next: "wait" }
             ]
         },
-        stranger_meet: {
-            text: "You step outside to clear your head. A stranger approaches you for a light. You feel an instant, magnetic allure. You end up talking for 4 hours, connecting deeper than you ever have with anyone.",
-            color: "#e0bbff",
-            options: [{ text: "One year later...", next: "space_choice" }]
+        train: {
+            text: "You've hopped on the train. It's surprisingly empty for a party night.",
+            color: "#bae1ff",
+            options: [
+                { text: "Look out the window", next: "window" }, 
+                { text: "Go on your phone, open Tinder", next: "tinder_train" }
+            ]
         },
-        space_choice: {
-            text: "A year has passed, and your bond is unbreakable. But now, he has been offered the biggest space mission in history. What do you do?",
+        window: {
+            text: "Someone catches your eye through the reflection... should you...",
+            color: "#ffffba",
+            options: [
+                { text: "Say hi", next: "romance_arc" }, 
+                { text: "Smile and walk away", next: "train_follow" }
+            ]
+        },
+        train_follow: {
+            text: "He follows you off the train and comes up to you saying he just had to say hi. He awkwardly says he likes your scarf.",
+            color: "#e0bbff",
+            options: [{ text: "Talk to him", next: "romance_arc" }]
+        },
+        tinder_train: {
+            text: "You start swiping on the train. You match with someone who looks like a deep thinker.",
+            color: "#bae1ff",
+            options: [{ text: "Respond to the match", next: "romance_arc" }]
+        },
+        stay_in: {
+            text: "After you order food, you open Tinder. You match with someone and feel a deep connection immediately.",
+            color: "#baffc9",
+            options: [{ text: "Keep talking to the match you like", next: "romance_arc" }]
+        },
+        romance_arc: {
+            text: "You talk for 4 hours and fall in love that night and progressively fall deeper in love every day for the following year. He’s a deep thinker but very entrenched in his work… he’s been lost in his work for years. He tells you about his days in academia in Astro, and how now he has the opportunity for the biggest US space mission currently, he has to go to the moon.",
             color: "#e0bbff",
             options: [
-                { text: "Love him from Earth", next: "ENDING_EARTH" },
-                { text: "Go to the stars with him", next: "ENDING_SPACE" }
+                { text: "Go and leave everything behind", next: "ENDING_SPACE" },
+                { text: "Love him From Earth", next: "ENDING_EARTH" }
             ]
-        },
-        // ... (Keep your existing 'train' and 'stay_in' logic here)
+        }
     };
 
     let i = 0;
     let speed = 40; 
 
     function loadScene(id) {
-        // Check if the choice is a special redirect to a new page
-        if (id === "ENDING_EARTH") {
-            window.location.href = "ending-earth.html";
-            return;
-        }
-        if (id === "ENDING_SPACE") {
-            window.location.href = "ending-space.html";
-            return;
-        }
+        if (id === "ENDING_EARTH") { window.location.href = "ending-earth.html"; return; }
+        if (id === "ENDING_SPACE") { window.location.href = "ending-space.html"; return; }
 
         const scene = story[id];
         const textContainer = document.getElementById('text');
