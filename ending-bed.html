@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ending: Bed Perpetual</title>
+    <style>
+        body { 
+            background-color: #0f0f0f; /* Deep dark background */
+            color: #c4c4c4; /* Soft gray text */
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        #art-container {
+            width: 85%;
+            max-width: 550px;
+            margin-bottom: 30px;
+        }
+        img { 
+            width: 100%; 
+            /* Minimalist: No borders or glowing effects */
+            opacity: 0;
+            animation: fadeInArt 3s forwards; 
+        }
+        #typewriter-text { 
+            font-size: 1.2rem;
+            max-width: 500px; 
+            line-height: 1.6; 
+            padding: 0 20px;
+            letter-spacing: 0.5px;
+        }
+        .back-link { 
+            margin-top: 40px; 
+            color: #444; /* Very dim link to maintain the "stuck" vibe */
+            text-decoration: none; 
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        .back-link:hover {
+            color: #777;
+        }
+        
+        @keyframes fadeInArt { to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div id="art-container">
+        <img src="images/bed.jpg" alt="Stuck in Bed Artwork">
+    </div>
+
+    <div id="typewriter-text"></div>
+
+    <a href="story.html" id="restart-btn" class="back-link">try again</a>
+
+    <script>
+        const text = "The conversation is a snooze fest and your food never arrives. The blankets feel heavier than usual. You are stuck in bed perpetually...";
+        let i = 0;
+        const speed = 50; 
+
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typewriter-text").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            } else {
+                // Link appears only after the text finishes typing
+                document.getElementById("restart-btn").style.opacity = "1";
+            }
+        }
+
+        // Delay the start of typing to allow the art to begin fading in
+        setTimeout(typeWriter, 1500);
+    </script>
+
+</body>
+</html>
