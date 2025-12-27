@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ending: To The Stars</title>
+    <style>
+        body { 
+            background-color: #050a12; /* Deep space blue-black */
+            color: #e0e0e0; 
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        #art-container {
+            width: 85%;
+            max-width: 600px;
+            margin-bottom: 30px;
+        }
+        img { 
+            width: 100%; 
+            /* Clean look: No borders, no glow */
+            opacity: 0;
+            animation: fadeInArt 3s forwards; 
+        }
+        #typewriter-text { 
+            font-size: 1.25rem;
+            max-width: 600px; 
+            line-height: 1.6; 
+            padding: 0 20px;
+            letter-spacing: 1.5px; /* Slight spacing for an "expansive" feel */
+        }
+        .back-link { 
+            margin-top: 40px; 
+            color: #4b5d78; 
+            text-decoration: none; 
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        .back-link:hover {
+            color: #8da4c7;
+        }
+        
+        @keyframes fadeInArt { to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div id="art-container">
+        <img src="images/space.jpg" alt="Space Mission Artwork">
+    </div>
+
+    <div id="typewriter-text"></div>
+
+    <a href="story.html" id="restart-btn" class="back-link">restart journey</a>
+
+    <script>
+        const text = "You pack your bags and leave everything behind. If he's going to the moon, you're his co-pilot. Together into the unknown...";
+        let i = 0;
+        const speed = 40; 
+
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typewriter-text").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            } else {
+                document.getElementById("restart-btn").style.opacity = "1";
+            }
+        }
+
+        // Delay start to let the space art breathe first
+        setTimeout(typeWriter, 1800);
+    </script>
+
+</body>
+</html>
