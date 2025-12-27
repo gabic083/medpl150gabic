@@ -74,7 +74,7 @@
 </div>
 
 <script>
-    const story = {
+    const storyData = {
         start: {
             text: "You're lying in bed when your phone buzzes. It's a text from Emily: 'Kris is having a party at 155 S 2nd. You should come, Adrian will be there ;)'",
             color: "#050505",
@@ -168,7 +168,7 @@
             options: [{ text: "Accept the fever dream", next: "ENDING_BED" }]
         },
         romance_1: {
-            text: "The first 4 hours feel surreal. The chaos if the city is minimized to faint background noise. You don't feel time passing. He tells you of his days studying Astro, and of his astonisment with the universe. You love listening to him talk. You can't fathom not having known this person.",
+            text: "The first 4 hours feel surreal. The chaos of the city is minimized to faint background noise. You don't feel time passing. He tells you of his days studying Astro, and of his astonishment with the universe. You love listening to him talk. You can't fathom not having known this person.",
             color: "#1a0033", 
             options: [{ text: "Let the night blur...", next: "romance_2" }]
         },
@@ -187,10 +187,10 @@
         }
     };
 
-    let i = 0;
-    let speed = 40; 
+    let charIndex = 0;
+    let typingSpeed = 40; 
 
-    function loadScene(id) {
+    function loadScene(sceneId) {
         const endings = {
             "ENDING_EARTH": "ending-earth.html",
             "ENDING_SPACE": "ending-space.html",
@@ -198,41 +198,42 @@
             "ENDING_BED": "ending-bed.html"
         };
 
-        if (endings[id]) {
-            window.location.href = endings[id];
+        if (endings[sceneId]) {
+            window.location.href = endings[sceneId];
             return;
         }
 
-        const scene = story[id];
+        const scene = storyData[sceneId];
         const textContainer = document.getElementById('text');
-        const optionsDiv = document.getElementById('options');
+        const optionsContainer = document.getElementById('options');
         
-        i = 0;
+        charIndex = 0;
         textContainer.innerHTML = '';
-        optionsDiv.innerHTML = '';
+        optionsContainer.innerHTML = '';
         document.body.style.backgroundColor = scene.color;
 
-        typeWriter(scene.text, () => {
-            scene.options.forEach(o => {
+        typeEffect(scene.text, () => {
+            scene.options.forEach(opt => {
                 const btn = document.createElement('button');
-                btn.innerText = o.text;
-                btn.onclick = () => loadScene(o.next);
-                optionsDiv.appendChild(btn);
+                btn.innerText = opt.text;
+                btn.onclick = () => loadScene(opt.next);
+                optionsContainer.appendChild(btn);
             });
         });
     }
 
-    function typeWriter(text, callback) {
-        if (i < text.length) {
-            document.getElementById("text").innerHTML += text.charAt(i);
-            i++;
-            setTimeout(() => typeWriter(text, callback), speed);
+    function typeEffect(fullText, onComplete) {
+        if (charIndex < fullText.length) {
+            document.getElementById("text").innerHTML += fullText.charAt(charIndex);
+            charIndex++;
+            setTimeout(() => typeEffect(fullText, onComplete), typingSpeed);
         } else {
-            callback(); 
+            onComplete(); 
         }
     }
 
-    loadScene('start');
+    // Initialize story
+    window.onload = () => loadScene('start');
 </script>
 </body>
 </html>
