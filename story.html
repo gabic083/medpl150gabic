@@ -3,56 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Story</title>
+    <title>The Connection</title>
     <style>
         body { 
+            background-color: #050505; 
+            color: #e0e0e0; 
             font-family: 'Courier New', Courier, monospace; 
-            background-color: #f0f2f5; 
             display: flex; 
             justify-content: center; 
             align-items: center; 
             height: 100vh; 
             margin: 0; 
-            transition: background 1s ease; 
+            transition: background 1.5s ease; 
         }
+
         #game-box { 
-            background: #fff; 
+            background: rgba(5, 5, 5, 0.95); 
             padding: 40px; 
-            border-radius: 12px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+            border: 1px solid #222;
+            border-radius: 2px; 
             max-width: 600px; 
             width: 90%; 
-            min-height: 300px;
+            min-height: 400px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
+
         #text { 
-            font-size: 1.3rem; 
-            line-height: 1.6; 
-            color: #333;
-            margin-bottom: 20px;
+            font-size: 1.1rem; 
+            line-height: 1.8; 
+            color: #c0c0c0;
+            margin-bottom: 25px;
         }
-        .options { 
-            display: flex; 
-            flex-direction: column; 
-            gap: 12px; 
-        }
+
+        .options { display: flex; flex-direction: column; gap: 12px; }
+
         button { 
             padding: 15px; 
             cursor: pointer; 
-            border: 2px solid #333; 
-            border-radius: 8px; 
-            background: transparent; 
+            border: 1px solid #333; 
+            background: #000; 
+            color: #666;
             font-family: inherit;
-            font-weight: bold;
-            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.5s;
             opacity: 0; 
-            animation: fadeIn 0.5s forwards;
+            animation: fadeIn 0.8s forwards;
         }
-        button:hover { background: #333; color: #fff; }
+
+        button:hover { 
+            background: #000; 
+            color: #fff; 
+            border-color: #ff00ff; 
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
+        }
+
         @keyframes fadeIn { to { opacity: 1; } }
-        .home-btn { margin-top: 20px; text-align: center; color: #999; text-decoration: none; font-size: 0.8rem; }
+
+        .home-btn { margin-top: 20px; text-align: center; color: #333; text-decoration: none; font-size: 0.7rem; }
     </style>
 </head>
 <body>
@@ -60,98 +70,117 @@
 <div id="game-box">
     <div id="text"></div>
     <div id="options" class="options"></div>
-    <a href="index.html" class="home-btn">← Back to Homework</a>
+    <a href="index.html" class="home-btn">TERMINAL_EXIT</a>
 </div>
 
 <script>
     const story = {
         start: {
-            text: "You're lying in bed when your phone buzzes. It's a text from your friend Emily: 'Kris is having a party at 155 S 2nd. You should comee, Adrian will be there ;)'",
-            color: "#f0f2f5",
+            text: "You're lying in bed when your phone buzzes. It's a text from Emily: 'Kris is having a party at 155 S 2nd. You should comee, Adrian will be there ;)'",
+            color: "#050505",
             options: [
                 { text: "Get up, find outfit", next: "outfit" },
                 { text: "Stay in bed, order Uber Eats", next: "stay_in" }
             ]
         },
         outfit: {
-            text: "You've got your outfit on and you're feeling yourself. How are you getting to 155 S 2nd?",
-            color: "#ffb3ba",
+            text: "You find an outfit that feels like a second skin. How are you getting to 155 S 2nd?",
+            color: "#1a001a", 
             options: [
-                { text: "Take an Uber to get there on time", next: "uber" }, 
-                { text: "Take the train and save money", next: "train" }
+                { text: "Take an Uber", next: "uber" }, 
+                { text: "Take the train", next: "train" }
             ]
         },
         uber: {
-            text: "The Uber drops you off. You can hear the music from the street. Now you're even earlier than your friend.",
-            color: "#ffb3ba",
+            text: "The Uber drops you off. The streetlights bleed into the wet pavement. You're earlier than Emily.",
+            color: "#000b1e",
             options: [
-                { text: "Wait outside for your friend", next: "wait" }, 
-                { text: "Go inside, she'll meet u in there", next: "inside" }
+                { text: "Wait outside", next: "wait" }, 
+                { text: "Go inside", next: "inside" }
             ]
         },
         wait: {
-            text: "You wait outside, feeling a little awkward. Someone comes up besides u and lights a cigarette. You feel an instant, magnetic allure.",
-            color: "#e0bbff",
-            options: [{ text: "Talk to them", next: "romance_arc" }]
+            text: "You wait outside. Someone leans against the wall nearby and lights a cigarette. The smoke curls in the neon light. You feel an instant, magnetic allure.",
+            color: "#2a002a", 
+            options: [{ text: "Talk to them", next: "romance_1" }]
         },
         inside: {
-            text: "You walk in and your heart drops. You see Adrian with another girl. You are upset and need to get out of there.",
-            color: "#ffb3ba",
+            text: "The music is a wall of sound. You spot Adrian, but he’s with another girl. You need to breathe.",
+            color: "#1e0000", 
             options: [
                 { text: "Go home and order Uber Eats", next: "stay_in" },
                 { text: "Go outside for a smoke", next: "wait" }
             ]
         },
         train: {
-            text: "You've hopped on the train. It's surprisingly empty for a party night.",
-            color: "#bae1ff",
+            text: "The train car is cold. Blue light flickers as you move through the tunnels.",
+            color: "#001a1a", 
             options: [
                 { text: "Look out the window", next: "window" }, 
-                { text: "Go on your phone, open Tinder", next: "tinder_train" }
+                { text: "Open Tinder", next: "tinder_train" }
             ]
         },
         window: {
-            text: "Someone catches your eye through the reflection... should you...",
-            color: "#ffffba",
+            text: "A reflection in the glass catches your eye. A stranger. Should you acknowledge them?",
+            color: "#001a1a",
             options: [
-                { text: "Say hi", next: "romance_arc" }, 
+                { text: "Say hi", next: "romance_1" }, 
                 { text: "Smile and walk away", next: "train_follow" }
             ]
         },
         train_follow: {
-            text: "He follows you off the train and comes up to you saying he just had to say hi. He awkwardly says he likes your scarf.",
-            color: "#e0bbff",
-            options: [{ text: "Talk to him", next: "romance_arc" }]
+            text: "He follows you onto the platform. 'I just had to say hi,' he says awkwardly. 'I really like your scarf.'",
+            color: "#2a002a",
+            options: [{ text: "Talk to him", next: "romance_1" }]
         },
         tinder_train: {
-            text: "You start swiping on the train. You match with someone who looks like a deep thinker.",
-            color: "#bae1ff",
+            text: "The signal drops in and out. You're scrolling through faces, looking for something that feels real.",
+            color: "#001a1a",
             options: [
-                { text: "Talk to someone new", next: "missed_stop" },
-                { text: "Respond to the match", next: "romance_arc" }
+                { text: "Talk to someone new", next: "missed_stop" }, 
+                { text: "Respond to the person you liked", next: "romance_1" }
             ]
         },
         missed_stop: {
-            text: "You were so busy swiping you missed your stop. You're stuck on the train until the end of the line!",
-            color: "#bae1ff",
-            options: [{ text: "See your fate...", next: "ENDING_TRAIN" }]
+            text: "You're caught in a rabbit hole of eternal matches. Total dissatisfaction. A doomscroll of meaningless connections. You don't notice the stops passing by.",
+            color: "#001a1a",
+            options: [{ text: "The cycle continues...", next: "ENDING_TRAIN" }]
         },
         stay_in: {
-            text: "After you order food, you open Tinder. You match with someone and feel a deep connection immediately.",
-            color: "#baffc9",
+            text: "Food is on the way. You open Tinder. You match with someone who has kind eyes; he's only in town for a few days, but the connection feels heavy.",
+            color: "#050505",
             options: [
-                { text: "Respond to a new match who said 'heyy'", next: "bed_ending" },
-                { text: "Keep talking to the match you like", next: "romance_arc" }
+                { text: "Respond to John: 'Heyy'", next: "john_trap" }, 
+                { text: "Keep talking to the connection", next: "romance_1" }
             ]
         },
-        bed_ending: {
-            text: "The conversation is a snooze fest and your food is late. You're stuck in bed perpetually.",
-            color: "#baffc9",
-            options: [{ text: "See your fate...", next: "ENDING_BED" }]
+        john_trap: {
+            text: "You reply to John. You try to get up to meet your delivery, but you find you cannot. Your limbs feel like lead.",
+            color: "#0a0a0a",
+            options: [
+                { text: "Call for help", next: "help_trap" },
+                { text: "Take a nap, maybe this is a bad dream", next: "ENDING_BED" }
+            ]
         },
-        romance_arc: {
-            text: "You talk for 4 hours and fall in love that night and progressively fall deeper in love every day for the following year. He’s a deep thinker but very entrenched in his work… he’s been lost in his work for years. He tells you about his days in academia in Astro, and how now he has the opportunity for the biggest US space mission currently, he has to go to the moon.",
-            color: "#e0bbff",
+        help_trap: {
+            text: "You try to call for help, but you cannot close the Tinder app. It's the only thing on your screen. You can't get to your phone functions. You are stuck.",
+            color: "#0a0a0a",
+            options: [{ text: "Accept the fever dream", next: "ENDING_BED" }]
+        },
+        // --- THE SURREAL ROMANCE SEQUENCE ---
+        romance_1: {
+            text: "The first 4 hours feel like a glitch in the city's code. The noise of the world fades into a singular frequency. You aren't just talking; you're remembering a life you haven't lived yet.",
+            color: "#1a0033", 
+            options: [{ text: "Let the night blur...", next: "romance_2" }]
+        },
+        romance_2: {
+            text: "6 months in. The newness is replaced by a heavy, beautiful gravity. You've seen the maps of his mind—the Astro academia, the obsession with the void. He is entrenched in his work, and you in him.",
+            color: "#0a0026", 
+            options: [{ text: "Time accelerates...", next: "romance_3" }]
+        },
+        romance_3: {
+            text: "One year. Tonight, the atmosphere changes. He tells you the mission is real. The moon is no longer a light in the sky—it's his destination. He's been chosen for the biggest US space mission in history.",
+            color: "#000000", 
             options: [
                 { text: "Go and leave everything behind", next: "ENDING_SPACE" },
                 { text: "Love him From Earth", next: "ENDING_EARTH" }
