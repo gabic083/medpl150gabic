@@ -105,9 +105,17 @@
             ]
         },
         train_follow: {
-            text: "He follows you onto the platform. 'I just had to say hi,' he says awkwardly. 'I really like your scarf.'",
+            text: "He follows you onto the platform. 'I just had to say hi,' he says awkwardly. 'I really like your scarf.' You realize you're both heading toward the exit for S 2nd. It turns out, he's going to Kris's party too.",
             color: "#2a002a",
-            options: [{ text: "Talk to him", next: "romance_1" }]
+            options: [{ text: "Continue talking", next: "station_decision" }]
+        },
+        station_decision: {
+            text: "Standing at the top of the subway stairs, he looks conflicted. 'I had to talk to you,' he admits. 'What are you up to right now? I was supposed to go to this party but honestly it doesn't sound too fun.'" You realize, somehow you both were on your way to the same party. Should you...,
+            color: "#1a001a",
+            options: [
+                { text: "Go to the party together", next: "romance_1" },
+                { text: "Go to a nearby coffee house instead", next: "romance_1" }
+            ]
         },
         tinder_train: {
             text: "The signal drops in and out. You're scrolling through faces, looking for something that feels real.",
