@@ -16,7 +16,6 @@
             margin: 0; 
             transition: background 1.5s ease; 
         }
-
         #game-box { 
             background: rgba(5, 5, 5, 0.95); 
             padding: 40px; 
@@ -29,39 +28,16 @@
             flex-direction: column;
             justify-content: space-between;
         }
-
-        #text { 
-            font-size: 1.1rem; 
-            line-height: 1.8; 
-            color: #c0c0c0;
-            margin-bottom: 25px;
-        }
-
+        #text { font-size: 1.1rem; line-height: 1.8; color: #c0c0c0; margin-bottom: 25px; }
         .options { display: flex; flex-direction: column; gap: 12px; }
-
         button { 
-            padding: 15px; 
-            cursor: pointer; 
-            border: 1px solid #333; 
-            background: #000; 
-            color: #666;
-            font-family: inherit;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.5s;
-            opacity: 0; 
-            animation: fadeIn 0.8s forwards;
+            padding: 15px; cursor: pointer; border: 1px solid #333; 
+            background: #000; color: #666; font-family: inherit;
+            text-transform: uppercase; letter-spacing: 2px;
+            transition: all 0.5s; opacity: 0; animation: fadeIn 0.8s forwards;
         }
-
-        button:hover { 
-            background: #000; 
-            color: #fff; 
-            border-color: #ff00ff; 
-            box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
-        }
-
+        button:hover { background: #000; color: #fff; border-color: #ff00ff; box-shadow: 0 0 15px rgba(255, 0, 255, 0.4); }
         @keyframes fadeIn { to { opacity: 1; } }
-
         .home-btn { margin-top: 20px; text-align: center; color: #333; text-decoration: none; font-size: 0.7rem; }
     </style>
 </head>
@@ -74,7 +50,7 @@
 </div>
 
 <script>
-    const storyData = {
+    const gameStory = {
         start: {
             text: "You're lying in bed when your phone buzzes. It's a text from Emily: 'Kris is having a party at 155 S 2nd. You should come, Adrian will be there ;)'",
             color: "#050505",
@@ -100,12 +76,12 @@
             ]
         },
         wait: {
-            text: "You wait outside. Someone leans against the wall nearby and lights a cigarette. The smoke curls in the neon light. You feel an instant, magnetic allure.",
+            text: "You wait outside. Someone leans against the wall nearby and lights a cigarette. You feel an instant, magnetic allure.",
             color: "#2a002a", 
             options: [{ text: "Talk to them", next: "romance_1" }]
         },
         inside: {
-            text: "The music is a wall of sound. You spot Adrian, but he’s with another girl. You need to breathe.",
+            text: "Your heart sinks. You spot Adrian, but he’s with another girl. You need to breathe.",
             color: "#1e0000", 
             options: [
                 { text: "Go home and order Uber Eats", next: "stay_in" },
@@ -121,7 +97,7 @@
             ]
         },
         window: {
-            text: "A reflection in the glass catches your eye. A stranger. Should you acknowledge them?",
+            text: "A stranger catches your eye and you can't help but smile when they look at you. Should you acknowledge them?",
             color: "#001a1a",
             options: [
                 { text: "Say hi", next: "romance_1" }, 
@@ -155,7 +131,7 @@
             ]
         },
         john_trap: {
-            text: "You reply to John. You try to get up to meet your delivery, but you find you cannot. Your limbs feel like lead.",
+            text: "You reply to John. You try to get up to meet your delivery, but you find you cannot. Your body feels heavy in the bed.",
             color: "#111111",
             options: [
                 { text: "Call for help", next: "help_trap" },
@@ -187,53 +163,51 @@
         }
     };
 
-    let charIndex = 0;
-    let typingSpeed = 40; 
+    let typingIdx = 0;
+    const typingSpd = 40; 
 
-    function loadScene(sceneId) {
-        const endings = {
+    function runScene(id) {
+        const redirects = {
             "ENDING_EARTH": "ending-earth.html",
             "ENDING_SPACE": "ending-space.html",
             "ENDING_TRAIN": "ending-train.html",
             "ENDING_BED": "ending-bed.html"
         };
 
-        if (endings[sceneId]) {
-            window.location.href = endings[sceneId];
+        if (redirects[id]) {
+            window.location.href = redirects[id];
             return;
         }
 
-        const scene = storyData[sceneId];
-        const textContainer = document.getElementById('text');
-        const optionsContainer = document.getElementById('options');
+        const data = gameStory[id];
+        if (!data) return;
+
+        const txtBox = document.getElementById('text');
+        const optBox = document.getElementById('options');
         
-        charIndex = 0;
-        textContainer.innerHTML = '';
-        optionsContainer.innerHTML = '';
-        document.body.style.backgroundColor = scene.color;
+        typingIdx = 0;
+        txtBox.innerHTML = '';
+        optBox.innerHTML = '';
+        document.body.style.backgroundColor = data.color;
 
-        typeEffect(scene.text, () => {
-            scene.options.forEach(opt => {
-                const btn = document.createElement('button');
-                btn.innerText = opt.text;
-                btn.onclick = () => loadScene(opt.next);
-                optionsContainer.appendChild(btn);
-            });
-        });
-    }
-
-    function typeEffect(fullText, onComplete) {
-        if (charIndex < fullText.length) {
-            document.getElementById("text").innerHTML += fullText.charAt(charIndex);
-            charIndex++;
-            setTimeout(() => typeEffect(fullText, onComplete), typingSpeed);
-        } else {
-            onComplete(); 
+        function doType() {
+            if (typingIdx < data.text.length) {
+                txtBox.innerHTML += data.text.charAt(typingIdx);
+                typingIdx++;
+                setTimeout(doType, typingSpd);
+            } else {
+                data.options.forEach(o => {
+                    const b = document.createElement('button');
+                    b.innerText = o.text;
+                    b.onclick = () => runScene(o.next);
+                    optBox.appendChild(b);
+                });
+            }
         }
+        doType();
     }
 
-    // Initialize story
-    window.onload = () => loadScene('start');
+    window.onload = () => runScene('start');
 </script>
 </body>
 </html>
