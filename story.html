@@ -76,7 +76,7 @@
 <script>
     const story = {
         start: {
-            text: "You're lying in bed when your phone buzzes. It's a text from Emily: 'Kris is having a party at 155 S 2nd. You should comee, Adrian will be there ;)'",
+            text: "You're lying in bed when your phone buzzes. It's a text from Emily: 'Kris is having a party at 155 S 2nd. You should come, Adrian will be there ;)'",
             color: "#050505",
             options: [
                 { text: "Get up, find outfit", next: "outfit" },
@@ -84,32 +84,32 @@
             ]
         },
         outfit: {
-            text: "You find an outfit that feels like a second skin. How are you getting to 155 S 2nd?",
+            text: "You find an outfit and you feel like yourself. How are you getting to 155 S 2nd?",
             color: "#1a001a", 
             options: [
-                { text: "Take an Uber", next: "uber" }, 
-                { text: "Take the train", next: "train" }
+                { text: "Take an Uber to get there on time", next: "uber" }, 
+                { text: "Take the train and save money", next: "train" }
             ]
         },
         uber: {
-            text: "The Uber drops you off. The streetlights bleed into the wet pavement. You're earlier than Emily.",
+            text: "The Uber drops you off. You can hear the music from the street. Now you're even earlier than Emily.",
             color: "#000b1e",
             options: [
                 { text: "Wait outside", next: "wait" }, 
-                { text: "Go inside", next: "inside" }
+                { text: "Go inside, she'll meet you in there", next: "inside" }
             ]
         },
         wait: {
-            text: "You wait outside. Someone leans against the wall nearby and lights a cigarette. The smoke curls in the neon light. You feel an instant, magnetic allure.",
+            text: "You wait outside. Someone comes up besides you and lights a cigarette. You feel an instant allure.",
             color: "#2a002a", 
             options: [{ text: "Talk to them", next: "romance_1" }]
         },
         inside: {
-            text: "The music is a wall of sound. You spot Adrian, but he’s with another girl. You need to breathe.",
+            text: "Your heart sinks. You spot Adrian, but he’s talking with another girl. You need to to get air.",
             color: "#1e0000", 
             options: [
-                { text: "Go home and order Uber Eats", next: "stay_in" },
-                { text: "Go outside for a smoke", next: "wait" }
+                { text: "Go outside for a smoke", next: "stay_in" },
+                { text: "Just go home and order Uber Eats", next: "wait" }
             ]
         },
         train: {
@@ -117,14 +117,14 @@
             color: "#001a1a", 
             options: [
                 { text: "Look out the window", next: "window" }, 
-                { text: "Open Tinder", next: "tinder_train" }
+                { text: "Go on your phone and open Tinder", next: "tinder_train" }
             ]
         },
         window: {
-            text: "A reflection in the glass catches your eye. A stranger. Should you acknowledge them?",
+            text: "A stranger catches your eye and you can't help but smile. He's trying not to smile too. The train has reached your stop. Should you acknowledge them?",
             color: "#001a1a",
             options: [
-                { text: "Say hi", next: "romance_1" }, 
+                { text: "Say hi, even though you'll miss your stop.", next: "romance_1" }, 
                 { text: "Smile and walk away", next: "train_follow" }
             ]
         },
@@ -150,12 +150,13 @@
             text: "Food is on the way. You open Tinder. You match with someone who has kind eyes; he's only in town for a few days, but the connection feels heavy.",
             color: "#050505",
             options: [
-                { text: "Respond to John: 'Heyy'", next: "john_trap" }, 
+    
                 { text: "Keep talking to the connection", next: "romance_1" }
+                { text: "Reply to a new match: 'Heyy'", next: "john_trap" },
             ]
         },
         john_trap: {
-            text: "You reply to John. You try to get up to meet your delivery, but you find you cannot. Your limbs feel like lead.",
+            text: "You reply to the "heyy" message. You try to get up to meet your delivery, but you find you cannot. Your body is heavy in the bed.",
             color: "#0a0a0a",
             options: [
                 { text: "Call for help", next: "help_trap" },
@@ -169,17 +170,17 @@
         },
         // --- THE SURREAL ROMANCE SEQUENCE ---
         romance_1: {
-            text: "The first 4 hours feel like a glitch in the city's code. The noise of the world fades into a singular frequency. You aren't just talking; you're remembering a life you haven't lived yet.",
+            text: "The first 4 hours feel surreal. You have no sense of time. You're talking to someone you can't remember not having known.",
             color: "#1a0033", 
             options: [{ text: "Let the night blur...", next: "romance_2" }]
         },
         romance_2: {
-            text: "6 months in. The newness is replaced by a heavy, beautiful gravity. You've seen the maps of his mind—the Astro academia, the obsession with the void. He is entrenched in his work, and you in him.",
+            text: "6 months in. The newness is replaced by a gravity. You've seen his obsession with his work in Astro, the obsession with the void. He is entrenched in his work, and you in him.",
             color: "#0a0026", 
             options: [{ text: "Time accelerates...", next: "romance_3" }]
         },
         romance_3: {
-            text: "One year. Tonight, the atmosphere changes. He tells you the mission is real. The moon is no longer a light in the sky—it's his destination. He's been chosen for the biggest US space mission in history.",
+            text: "His work has escilated. He's been chosen for the biggest US space mission in history.",
             color: "#000000", 
             options: [
                 { text: "Go and leave everything behind", next: "ENDING_SPACE" },
