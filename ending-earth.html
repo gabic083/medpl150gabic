@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ending: Love From Earth</title>
+    <style>
+        body { 
+            background-color: #1a1a1a; 
+            color: white; 
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        #art-container {
+            width: 80%;
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+        img { 
+            width: 100%; 
+            border: 2px solid white;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+            opacity: 0;
+            animation: fadeInArt 2s forwards; 
+        }
+        #typewriter-text { 
+            font-size: 1.5rem;
+            max-width: 600px; 
+            line-height: 1.6; 
+            padding: 0 20px;
+            min-height: 3em; /* Prevents layout jump while typing */
+        }
+        .back-link { 
+            margin-top: 30px; 
+            color: #aaa; 
+            text-decoration: none; 
+            border-bottom: 1px solid #555;
+            opacity: 0;
+            transition: opacity 1s;
+        }
+        
+        @keyframes fadeInArt { to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div id="art-container">
+        <img src="images/longdistance1.jpg" alt="Love From Earth Artwork">
+    </div>
+
+    <div id="typewriter-text"></div>
+
+    <a href="story.html" id="restart-btn" class="back-link">Play Again</a>
+
+    <script>
+        const text = "You choose to stay but love him from earth...";
+        let i = 0;
+        const speed = 50;
+
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typewriter-text").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            } else {
+                // Show the "Play Again" link once typing is finished
+                document.getElementById("restart-btn").style.opacity = "1";
+            }
+        }
+
+        // Start typing after a short delay so the user can see the image fade in
+        setTimeout(typeWriter, 1000);
+    </script>
+
+</body>
+</html>
