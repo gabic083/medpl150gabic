@@ -1,7 +1,7 @@
 <script>
     const story = {
         start: {
-            text: "You're lying in bed when your phone buzzes. It's a text from your friend: 'Kris is having a party at 155 S 2nd. You should comee, Adrian will be there ;)'",
+            text: "You're lying in bed when your phone buzzes. It's a text from your friend Emily: 'Kris is having a party at 155 S 2nd. You should comee, Adrian will be there ;)'",
             color: "#f0f2f5",
             options: [
                 { text: "Get up, find outfit", next: "outfit" },
@@ -12,20 +12,20 @@
             text: "You've got your outfit on and you're feeling yourself. How are you getting to 155 S 2nd?",
             color: "#ffb3ba",
             options: [
-                { text: "Take an Uber", next: "uber" }, 
-                { text: "Take the train", next: "train" }
+                { text: "Take an Uber to get there on time", next: "uber" }, 
+                { text: "Take the train and save money", next: "train" }
             ]
         },
         uber: {
-            text: "The Uber drops you off. You can hear the music from the street.",
+            text: "The Uber drops you off. You can hear the music from the street. Now you're even earlier than your friend",
             color: "#ffb3ba",
             options: [
                 { text: "Wait outside for your friend", next: "wait" }, 
-                { text: "Go inside, she'll meet u later", next: "inside" }
+                { text: "Go inside, she'll meet u in there", next: "inside" }
             ]
         },
         wait: {
-            text: "You wait outside. Someone comes up besides u and lights a cigarette. You realize this vibe isn't for you tonight.",
+            text: "You wait outside, feeling a little awkward. Someone comes up besides u and lights a cigarette.",
             color: "#ffb3ba",
             options: [{ text: "Start over...", next: "start" }]
         },
